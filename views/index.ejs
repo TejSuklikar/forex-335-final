@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Forex Insights - Exchange Rates</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>US Forex Insights</h1>
+            <nav>
+                <a href="/">Exchange Rates</a>
+                <a href="/news">Economic News</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="rates-section">
+                <h2>USD Exchange Rates</h2>
+                
+                <% if (error) { %>
+                    <div class="error-message">
+                        <p><%= error %></p>
+                    </div>
+                <% } %>
+
+                <% if (rates) { %>
+                    <div class="rates-grid">
+                        <div class="rate-card">
+                            <div class="currency-code">EUR</div>
+                            <div class="rate-value"><%= rates.EUR.toFixed(4) %></div>
+                            <div class="currency-name">Euro</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="currency-code">GBP</div>
+                            <div class="rate-value"><%= rates.GBP.toFixed(4) %></div>
+                            <div class="currency-name">British Pound</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="currency-code">JPY</div>
+                            <div class="rate-value"><%= rates.JPY.toFixed(2) %></div>
+                            <div class="currency-name">Japanese Yen</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="currency-code">CNY</div>
+                            <div class="rate-value"><%= rates.CNY.toFixed(4) %></div>
+                            <div class="currency-name">Chinese Yuan</div>
+                        </div>
+                        <div class="rate-card">
+                            <div class="currency-code">INR</div>
+                            <div class="rate-value"><%= rates.INR.toFixed(4) %></div>
+                            <div class="currency-name">Indian Rupee</div>
+                        </div>
+                    </div>
+
+                    <% if (timestamp) { %>
+                        <p class="timestamp">Last updated: <%= timestamp %></p>
+                    <% } %>
+
+                    <form action="/refresh" method="POST" class="refresh-form">
+                        <button type="submit" class="refresh-btn">Refresh Rates</button>
+                    </form>
+                <% } else { %>
+                    <div class="no-data">
+                        <p>Unable to load exchange rates. Please check your API configuration.</p>
+                    </div>
+                <% } %>
+            </section>
+        </main>
+
+        <footer>
+            <p>Data provided by Fixer API / ExchangeRate-API</p>
+        </footer>
+    </div>
+</body>
+</html>
+

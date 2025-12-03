@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Forex Insights - Economic News</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>US Forex Insights</h1>
+            <nav>
+                <a href="/">Exchange Rates</a>
+                <a href="/news">Economic News</a>
+            </nav>
+        </header>
+
+        <main>
+            <section class="news-section">
+                <h2>Economic News</h2>
+                
+                <form action="/news" method="POST" class="search-form">
+                    <input 
+                        type="text" 
+                        name="search" 
+                        placeholder="Search for economic news (e.g., inflation, interest rates, USD)" 
+                        value="<%= searchQuery %>"
+                        class="search-input"
+                    >
+                    <button type="submit" class="search-btn">Search</button>
+                </form>
+
+                <% if (error) { %>
+                    <div class="error-message">
+                        <p><%= error %></p>
+                    </div>
+                <% } %>
+
+                <% if (articles && articles.length > 0) { %>
+                    <div class="articles-container">
+                        <% articles.forEach(article => { %>
+                            <article class="article-card">
+                                <h3 class="article-title">
+                                    <a href="<%= article.url %>" target="_blank" rel="noopener noreferrer">
+                                        <%= article.title %>
+                                    </a>
+                                </h3>
+                                <% if (article.description) { %>
+                                    <p class="article-description"><%= article.description %></p>
+                                <% } %>
+                                <div class="article-meta">
+                                    <span class="article-source"><%= article.source %></span>
+                                    <% if (article.publishedAt) { %>
+                                        <span class="article-date">
+                                            <%= new Date(article.publishedAt).toLocaleDateString() %>
+                                        </span>
+                                    <% } %>
+                                </div>
+                            </article>
+                        <% }); %>
+                    </div>
+                <% } else if (!error) { %>
+                    <div class="no-data">
+                        <p>No articles found. Try a different search term.</p>
+                    </div>
+                <% } %>
+            </section>
+        </main>
+
+        <footer>
+            <p>News provided by Marketaux API</p>
+        </footer>
+    </div>
+</body>
+</html>
+
