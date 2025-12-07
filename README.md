@@ -1,6 +1,6 @@
 # US Forex Insights
 
-**Submitted by:** Anitej Suklikar (asuklika)
+**Submitted by:** Arjun Mahendra (amahend1)
 
 **Group Members:** Anitej Suklikar (asuklika), Arjun Mahendra (amahend1)
 
@@ -8,10 +8,10 @@
 
 **YouTube Video Demo Link:** [PASTE YOUR YOUTUBE LINK HERE]
 
-**APIs:** 
-- Fixer API (https://fixer.io) / ExchangeRate-API (https://api.exchangerate-api.com)
-- Marketaux API (https://www.marketaux.com)
+**APIs:**
+- [Fixer API](https://fixer.io) / [ExchangeRate-API](https://api.exchangerate-api.com)
+- [Marketaux API](https://www.marketaux.com)
 
 **Contact Email:** amahend1@terpmail.umd.edu
 
-**Deployed App Link:** https://forex-335-final.onrender.com
+**Deployed App Link:** [https://forex-335-final.onrender.com](https://forex-335-final.onrender.com)
