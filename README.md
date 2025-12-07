@@ -14,4 +14,4 @@
 
 **Contact Email:** amahend1@terpmail.umd.edu
 
-**Deployed App Link:** [PASTE YOUR RENDER LINK HERE]
+**Deployed App Link:** https://forex-335-final.onrender.com
