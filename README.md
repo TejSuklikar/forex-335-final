@@ -1,6 +1,6 @@
 # US Forex Insights
 
-**Submitted by:** Arjun Mahendra (amahend1)
+**Submitted by:** Anitej Suklikar (asuklika)
 
 **Group Members:** Anitej Suklikar (asuklika), Arjun Mahendra (amahend1)
 
