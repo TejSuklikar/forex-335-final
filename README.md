@@ -6,7 +6,7 @@
 
 **App Description:** A USD forex dashboard displaying live exchange rates and economic news with search functionality.
 
-**YouTube Video Demo Link:** [https://youtu.be/nc84Y0TVuUU)](https://youtu.be/nc84Y0TVuUU)]
+**YouTube Video Demo Link:** [https://youtu.be/nc84Y0TVuUU)](https://youtu.be/nc84Y0TVuUU)
 
 **APIs:**
 - [Fixer API](https://fixer.io) / [ExchangeRate-API](https://api.exchangerate-api.com)
