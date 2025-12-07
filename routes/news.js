@@ -1,14 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const Search = require('./models/Search');
 
-// GET /news - Display general USD economic news
 router.get('/', async (req, res) => {
   try {
     const searchQuery = 'usd forex economy';
     let articles = [];
     
-    // Try Marketaux API first (if MARKETAUX_API_KEY is set)
     if (process.env.MARKETAUX_API_KEY) {
       try {
         const marketauxResponse = await axios.get(
@@ -29,7 +28,6 @@ router.get('/', async (req, res) => {
       }
     }
     
-    // Fallback to GNews API if Marketaux fails or if GNEWS_API_KEY is set
     if (articles.length === 0 && process.env.GNEWS_API_KEY) {
       try {
         const gnewsResponse = await axios.get(
@@ -50,7 +48,6 @@ router.get('/', async (req, res) => {
       }
     }
     
-    // Fallback to NewsAPI if both fail
     if (articles.length === 0 && process.env.NEWS_API_KEY) {
       try {
         const newsApiResponse = await axios.get(
@@ -70,10 +67,13 @@ router.get('/', async (req, res) => {
         console.error('NewsAPI error:', newsApiError.message);
       }
     }
+
+    const recentSearches = await Search.find().sort({ timestamp: -1 }).limit(5);
     
     res.render('news', {
       articles: articles,
       searchQuery: searchQuery,
+      recentSearches: recentSearches,
       error: articles.length === 0 ? 'No articles found. Please check your API key configuration.' : null
     });
   } catch (error) {
@@ -81,28 +81,32 @@ router.get('/', async (req, res) => {
     res.render('news', {
       articles: [],
       searchQuery: 'usd forex economy',
+      recentSearches: [],
       error: 'Failed to fetch news. Please check your API key configuration.'
     });
   }
 });
 
-// POST /news - Search news by keyword
 router.post('/', async (req, res) => {
   try {
     const searchQuery = req.body.search || 'usd forex economy';
+    
+    await Search.create({ query: searchQuery });
+    
     const NEWS_API_KEY = process.env.MARKETAUX_API_KEY || process.env.GNEWS_API_KEY || process.env.NEWS_API_KEY;
     
     if (!NEWS_API_KEY) {
+      const recentSearches = await Search.find().sort({ timestamp: -1 }).limit(5);
       return res.render('news', {
         articles: [],
         searchQuery: searchQuery,
+        recentSearches: recentSearches,
         error: 'News API key not configured'
       });
     }
     
     let articles = [];
     
-    // Try Marketaux API first
     if (process.env.MARKETAUX_API_KEY) {
       try {
         const marketauxResponse = await axios.get(
@@ -123,7 +127,6 @@ router.post('/', async (req, res) => {
       }
     }
     
-    // Fallback to GNews API
     if (articles.length === 0 && process.env.GNEWS_API_KEY) {
       try {
         const gnewsResponse = await axios.get(
@@ -144,7 +147,6 @@ router.post('/', async (req, res) => {
       }
     }
     
-    // Fallback to NewsAPI
     if (articles.length === 0 && process.env.NEWS_API_KEY) {
       try {
         const newsApiResponse = await axios.get(
@@ -164,21 +166,25 @@ router.post('/', async (req, res) => {
         console.error('NewsAPI error:', newsApiError.message);
       }
     }
+
+    const recentSearches = await Search.find().sort({ timestamp: -1 }).limit(5);
     
     res.render('news', {
       articles: articles,
       searchQuery: searchQuery,
+      recentSearches: recentSearches,
       error: articles.length === 0 ? 'No articles found for your search query.' : null
     });
   } catch (error) {
     console.error('Error searching news:', error);
+    const recentSearches = await Search.find().sort({ timestamp: -1 }).limit(5);
     res.render('news', {
       articles: [],
       searchQuery: req.body.search || 'usd forex economy',
+      recentSearches: recentSearches,
       error: 'Failed to search news. Please try again.'
     });
   }
 });
 
 module.exports = router;
-

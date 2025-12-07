@@ -34,6 +34,17 @@
                     <button type="submit" class="search-btn">Search</button>
                 </form>
 
+                <% if (recentSearches && recentSearches.length > 0) { %>
+                    <div class="recent-searches">
+                        <h3>Recent Searches</h3>
+                        <div class="search-tags">
+                            <% recentSearches.forEach(search => { %>
+                                <span class="search-tag"><%= search.query %></span>
+                            <% }); %>
+                        </div>
+                    </div>
+                <% } %>
+
                 <% if (error) { %>
                     <div class="error-message">
                         <p><%= error %></p>
@@ -77,4 +88,3 @@
     </div>
 </body>
 </html>
-

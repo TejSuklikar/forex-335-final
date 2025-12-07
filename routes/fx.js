@@ -2,10 +2,8 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
-// GET / - Display USD exchange rates
 router.get('/', async (req, res) => {
   try {
-    // Try Fixer API first if key is provided
     const FIXER_API_KEY = process.env.FIXER_API_KEY;
     let rates = null;
     let timestamp = null;
@@ -34,7 +32,6 @@ router.get('/', async (req, res) => {
       }
     }
     
-    // Fallback to ExchangeRate-API (free, no key required)
     if (!rates) {
       const response = await axios.get(
         'https://api.exchangerate-api.com/v4/latest/USD'
@@ -83,10 +80,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST /refresh - Refresh exchange rates
 router.post('/refresh', async (req, res) => {
   try {
-    // Try Fixer API first if key is provided
     const FIXER_API_KEY = process.env.FIXER_API_KEY;
     let rates = null;
     let timestamp = null;
@@ -114,8 +109,7 @@ router.post('/refresh', async (req, res) => {
         console.log('Fixer API failed, trying alternative API...');
       }
     }
-    
-    // Fallback to ExchangeRate-API (free, no key required)
+
     if (!rates) {
       const response = await axios.get(
         'https://api.exchangerate-api.com/v4/latest/USD'
