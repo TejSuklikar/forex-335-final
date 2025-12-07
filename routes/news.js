@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
-const Search = require('../models/Search');
+const Search = require('../models/search');
 
 router.get('/', async (req, res) => {
   try {
