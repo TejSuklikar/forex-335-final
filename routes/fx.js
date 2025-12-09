@@ -124,7 +124,7 @@ router.post('/refresh', async (req, res) => {
           CNY: exchangeRates.CNY || 0,
           INR: exchangeRates.INR || 0
         };
-        timestamp = response.data.date || new Date().toISOString().split('T')[0];
+        timestamp = response.data.date;
       }
     }
 
