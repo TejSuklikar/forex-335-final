@@ -9,7 +9,7 @@
 **YouTube Video Demo Link:** [https://youtu.be/nc84Y0TVuUU](https://youtu.be/nc84Y0TVuUU)
 
 **APIs:**
-- [Fixer API](https://fixer.io) / [ExchangeRate-API](https://api.exchangerate-api.com)
+- [Fixer API](https://fixer.io)
 - [Marketaux API](https://www.marketaux.com)
 
 **Contact Email:** asuklika@terpmail.umd.edu
